@@ -16,8 +16,8 @@ if ( !class_exists( 'WP_Zip_Generator' ) ) {
 				'source_directory'     => '',
 				'process_extensions'   => array('php', 'css', 'js', 'txt', 'md'),
 				'zip_root_directory'   => '',
-				'zip_filename'         => '',
-				'download_filename'    => '{timestamp}.zip',
+				'zip_temp_directory'   => plugin_dir_path( __FILE__ ),
+				'download_filename'    => '',
 				'exclude_directories'  => array('.git', '.svn', '.', '..'),
 				'exclude_files'        => array('.git', '.svn', '.DS_Store', '.gitignore', '.', '..'),
 				'filename_filter'      => null,
@@ -37,7 +37,7 @@ if ( !class_exists( 'WP_Zip_Generator' ) ) {
 
 			$this->options['download_filename'] = empty($this->options['download_filename']) ? "{$this->slug}.zip" : $this->options['download_filename'];
 
-			$this->options['zip_temp_filename'] = plugin_dir_path( __FILE__ ) . sprintf( 'temp/%s-%s.zip', $this->slug, md5( print_r( $this->options['variables'], true ) ) );
+			$this->options['zip_temp_filename'] = trailingslashit( $this->options['zip_temp_directory'] ) . sprintf( '%s-%s.zip', $this->slug, md5( print_r( $this->options['variables'], true ) ) );
 
 			if ( !empty($this->options['filename_filter']) ) {
 				add_filter( 'zip_generator_process_filename-' . $this->slug, $this->options['filename_filter'], 10, 2 );
