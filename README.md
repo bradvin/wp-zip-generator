@@ -44,6 +44,7 @@ $zip_generator->generate();
 $zip_generator->send_download_headers();
 
 die();
+```
 
 ## Arguments ##
 
